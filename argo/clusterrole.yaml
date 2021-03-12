@@ -1,0 +1,24 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: scansettingsbinding-creator
+rules:
+  - verbs:
+      - get
+      - watch
+      - list
+    apiGroups:
+      - compliance.openshift.io
+    resources:
+      - scansettings
+      - compliancesuites
+      - compliancescans
+      - compliancecheckresults
+      - complianceremediations
+  - verbs:
+      - '*'
+    apiGroups:
+      - compliance.openshift.io
+    resources:
+      - scansettingbindings
