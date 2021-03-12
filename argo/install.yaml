@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: compliance-operator-install
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openshift-compliance
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    directory:
+      recurse: true
+    path: co-install
+    repoURL: https://github.com/JAORMX/compliance-operator-gitops.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
