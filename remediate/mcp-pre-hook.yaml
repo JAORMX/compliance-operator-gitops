@@ -1,0 +1,34 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  name: mcp-pause-job
+  namespace: openshift-gitops
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli:v4.4
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/mcp
+              echo ""
+              echo -n "Pausing MachineConfigPools."
+              MCPS=("worker" "master" )
+              for MCP in "${MCPS[@]}"
+              do
+                oc patch machineconfigpools $MCP -p '{"spec":{"paused":true}}' --type=merge
+              done
+          imagePullPolicy: Always
+          name: mcp-pause-job
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: mcp-job-sa
+      serviceAccountName: mcp-job-sa
+      terminationGracePeriodSeconds: 30

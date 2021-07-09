@@ -1,0 +1,18 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    complianceascode.io/depends-on: xccdf_org.ssgproject.content_rule_package_usbguard_installed
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 75-master-rhcos4-service-usbguard-enabled
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    systemd:
+      units:
+      - enabled: true
+        name: usbguard.service

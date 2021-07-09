@@ -1,0 +1,18 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 75-worker-rhcos4-sysctl-net-ipv6-conf-default-accept-ra
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:,net.ipv6.conf.default.accept_ra%3D0%0A
+        mode: 420
+        overwrite: true
+        path: /etc/sysctl.d/75-sysctl_net_ipv6_conf_default_accept_ra.conf

@@ -1,0 +1,19 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 75-worker-rhcos4-service-bluetooth-disabled
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    systemd:
+      units:
+      - enabled: false
+        mask: true
+        name: bluetooth.service
+      - enabled: false
+        mask: true
+        name: bluetooth.socket

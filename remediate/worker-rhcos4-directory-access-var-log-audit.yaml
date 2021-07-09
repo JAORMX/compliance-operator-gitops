@@ -1,0 +1,18 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 75-worker-rhcos4-directory-access-var-log-audit
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:,-a%20always%2Cexit%20-F%20dir%3D/var/log/audit/%20-F%20perm%3Dr%20-F%20auid%3E%3D1000%20-F%20auid%21%3Dunset%20-F%20key%3Daccess-audit-trail%0A
+        mode: 384
+        overwrite: true
+        path: /etc/audit/rules.d/30-access-var-log-audit.rules

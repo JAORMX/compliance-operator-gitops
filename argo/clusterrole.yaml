@@ -19,6 +19,13 @@ rules:
   - verbs:
       - '*'
     apiGroups:
+      - machineconfiguration.openshift.io
+    resources:
+      - machineconfigpools
+      - machineconfigs
+  - verbs:
+      - '*'
+    apiGroups:
       - compliance.openshift.io
     resources:
       - scansettingbindings
