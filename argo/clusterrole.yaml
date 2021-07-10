@@ -22,3 +22,10 @@ rules:
       - compliance.openshift.io
     resources:
       - scansettingbindings
+  - verbs:
+      - '*'
+    apiGroups:
+      - machineconfiguration.openshift.io
+    resources:
+      - machineconfigpools
+      - machineconfigs
