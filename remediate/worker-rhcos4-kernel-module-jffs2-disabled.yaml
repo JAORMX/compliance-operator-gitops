@@ -1,0 +1,18 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 75-worker-rhcos4-kernel-module-jffs2-disabled
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:,install%20jffs2%20/bin/true%0A
+        mode: 420
+        overwrite: true
+        path: /etc/modprobe.d/75-kernel_module_jffs2_disabled.conf

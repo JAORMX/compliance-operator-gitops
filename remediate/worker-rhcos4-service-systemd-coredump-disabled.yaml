@@ -1,0 +1,19 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 75-worker-rhcos4-service-systemd-coredump-disabled
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    systemd:
+      units:
+      - enabled: false
+        mask: true
+        name: systemd-coredump.service
+      - enabled: false
+        mask: true
+        name: systemd-coredump.socket

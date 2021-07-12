@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: remediations
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openshift-compliance
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    directory:
+      recurse: true
+    path: remediate  # NOTE: This is repo dependent
+    repoURL: https://github.com/JAORMX/compliance-operator-gitops.git
+    targetRevision: remediate  # NOTE: This is branch dependent
+  syncPolicy:
+    automated:
+      prune: false  # NOTE: Let's not get ArgoCD to delete our remediations
+      selfHeal: true

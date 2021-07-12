@@ -1,0 +1,21 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    complianceascode.io/depends-on: xccdf_org.ssgproject.content_rule_package_usbguard_installed
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 75-worker-rhcos4-usbguard-allow-hid-and-hub
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:,%0Aallow%20with-interface%20match-all%20%7B%2003%3A%2A%3A%2A%2009%3A00%3A%2A%20%7D
+        mode: 384
+        overwrite: true
+        path: /etc/usbguard/rules.d/75-hid-and-hub.conf

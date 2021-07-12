@@ -1,0 +1,13 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 75-master-rhcos4-coreos-pti-kernel-argument
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+  kernelArguments:
+  - pti=on

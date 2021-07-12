@@ -1,0 +1,18 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 75-worker-rhcos4-audit-rules-mac-modification
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:,-w%20/etc/selinux/%20-p%20wa%20-k%20MAC-policy%0A
+        mode: 384
+        overwrite: true
+        path: /etc/audit/rules.d/75-etcselinux-wa-MAC-policy.rules

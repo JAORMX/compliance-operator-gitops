@@ -1,0 +1,18 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 75-master-rhcos4-sysctl-kernel-perf-event-paranoid
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:,kernel.perf_event_paranoid%3D2%0A
+        mode: 420
+        overwrite: true
+        path: /etc/sysctl.d/75-sysctl_kernel_perf_event_paranoid.conf
